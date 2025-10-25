@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎉 Joyeux Anniversaire 🎂</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(270deg, #667eea, #764ba2, #ff6b6b, #f9ca24);
+      background-size: 800% 800%;
+      animation: gradientMove 15s ease infinite;
+      color: white;
+      position: relative;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      padding: 40px 30px;
+      z-index: 10;
+      animation: appear 1.5s ease;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff; }
+      to { text-shadow: 0 0 25px #ffd700, 0 0 40px #ff6b6b; }
+    }
+
+    .cake {
+      font-size: 6rem;
+      margin: 20px 0;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .message {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .button {
+      background: linear-gradient(135deg, #ff6b6b, #f9ca24);
+      border: none;
+      border-radius: 50px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .popup-content {
+      background: white;
+      color: #333;
+      border-radius: 20px;
+      padding: 2rem 3rem;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      animation: scaleIn 0.5s ease;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup-content button {
+      margin-top: 1rem;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .popup-content button:hover {
+      background: #ff5252;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars" id="stars"></div>
+
+  <div class="card">
+    <h1>🎉 Joyeux Anniversaire Dje 🎉</h1>
+    <div class="cake">🎂</div>
+    <p class="message">Que cette nouvelle année t'apporte joie, santé et bonheur🎉🎈. Que ta journée soit remplie de sourires, de surprises et d’amour 💖</p>
+
+    <div class="buttons">
+      <button class="button" onclick="celebrate()">Célébrer 🎊</button>
+      <button class="button" onclick="toggleMusic()">Musique 🎵</button>
+      <button class="button" onclick="showPopup()">Cadeau 🎁</button>
+    </div>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>💝 Une surprise pour toi 💝</h2>
+      <p>Tu es une personne exceptionnelle, et aujourd’hui, c’est TON jour ! 🌟</p>
+      <button onclick="closePopup()">Fermer</button>
+    </div>
+  </div>
+
+  <audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b1b6bfb4e.mp3?filename=happy-birthday-to-you-15548.mp3" preload="auto"></audio>
+
+  <script>
+    const audio = document.getElementById("music");
+    const popup = document.getElementById("popup");
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createStars() {
+      const starContainer = document.getElementById("stars");
+      for (let i = 0; i < 80; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        star.style.animationDelay = Math.random() * 2 + "s";
+        starContainer.appendChild(star);
+      }
+    }
+
+    function createConfetti() {
+      const colors = ["#ff6b6b", "#f9ca24", "#6c5ce7", "#4ecdc4"];
+      for (let i = 0; i < 60; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + "%";
+        confetti.style.animationDuration = random(3, 6) + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 6000);
+      }
+    }
+
+    function celebrate() {
+      createConfetti();
+    }
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    function showPopup() {
+      popup.style.display = "flex";
+      createConfetti();
+      audio.play();
+    }
+
+    function closePopup() {
+      popup.style.display = "none";
+    }
+
+    window.onload = createStars;
+  </script>
+</body>
+</html>
